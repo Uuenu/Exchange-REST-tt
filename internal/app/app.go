@@ -11,6 +11,8 @@ import (
 	"yarus-tz/internal/usecase"
 	"yarus-tz/pkg/logger"
 
+	//vrest "yarus-tz/pkg/valute-rest"
+
 	"github.com/gin-gonic/gin"
 	// "yarus-tz/pkg/logger"
 	// "github.com/gin-gonic/gin"
@@ -18,6 +20,9 @@ import (
 
 func Run(cfg *config.Config) {
 	l := logger.New(cfg.Log.Level)
+
+	//Valute Rest
+	//valute.RunValuteRest()
 
 	//Use case
 	exchangeUseCase := usecase.NewExchangeUseCase(l)

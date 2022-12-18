@@ -8,8 +8,6 @@ import (
 	"time"
 
 	. "github.com/Eun/go-hit"
-
-	"github.com/evrone/go-clean-template/pkg/rabbitmq/rmq_rpc/client"
 )
 
 const (
@@ -21,11 +19,11 @@ const (
 	// HTTP REST
 	basePath = "http://" + host + "/v1"
 
-	// RabbitMQ RPC
-	rmqURL            = "amqp://guest:guest@rabbitmq:5672/"
-	rpcServerExchange = "rpc_server"
-	rpcClientExchange = "rpc_client"
-	requests          = 10
+	// // RabbitMQ RPC
+	// rmqURL            = "amqp://guest:guest@rabbitmq:5672/"
+	// rpcServerExchange = "rpc_server"
+	// rpcClientExchange = "rpc_client"
+	// requests          = 10
 )
 
 func TestMain(m *testing.M) {
@@ -59,33 +57,28 @@ func healthCheck(attempts int) error {
 	return err
 }
 
-// HTTP POST: /exchange/do-translate.
-func TestHTTPDoTranslate(t *testing.T) {
-	body := `{
-		"destination": "en",
-		"original": "текст для перевода",
-		"source": "auto"
-	}`
+// HTTP Get: /exchange/do-translate.
+func TestHTTPDoExchange(t *testing.T) {
+	body := `{}`
 	Test(t,
 		Description("DoExchange Success"),
 		Get(basePath+"/exchange"),
 		Send().Headers("Content-Type").Add("application/json"),
+		Send().Headers("X-Api-Key").Add("123321"),
 		Send().Body().String(body),
 		Expect().Status().Equal(http.StatusOK),
 		Expect().Body().JSON().JQ(".exchange").Equal("text for exchange"),
 	)
 
-	body = `{
-		"destination": "en",
-		"original": "текст для перевода"
-	}`
+	body = `{}`
 	Test(t,
 		Description("DoExchange Fail"),
-		Post(basePath+"/exchange"),
+		Get(basePath+"/exchange"),
 		Send().Headers("Content-Type").Add("application/json"),
+		Send().Headers("X-Api-Key").Add("fail"),
 		Send().Body().String(body),
 		Expect().Status().Equal(http.StatusBadRequest),
-		Expect().Body().JSON().JQ(".error").Equal("invalid request body"),
+		Expect().Body().JSON().JQ(".error").Equal("invalid request"),
 	)
 }
 
@@ -99,41 +92,37 @@ func TestHTTPHistory(t *testing.T) {
 	)
 }
 
-// RabbitMQ RPC Client: getHistory.
-func TestRMQClientRPC(t *testing.T) {
-	rmqClient, err := client.New(rmqURL, rpcServerExchange, rpcClientExchange)
-	if err != nil {
-		t.Fatal("RabbitMQ RPC Client - init error - client.New")
-	}
+// // RabbitMQ RPC Client: getHistory.
+// func TestRMQClientRPC(t *testing.T) {
+// 	rmqClient, err := client.New(rmqURL, rpcServerExchange, rpcClientExchange)
+// 	if err != nil {
+// 		t.Fatal("RabbitMQ RPC Client - init error - client.New")
+// 	}
 
-	defer func() {
-		err = rmqClient.Shutdown()
-		if err != nil {
-			t.Fatal("RabbitMQ RPC Client - shutdown error - rmqClient.RemoteCall", err)
-		}
-	}()
+// 	defer func() {
+// 		err = rmqClient.Shutdown()
+// 		if err != nil {
+// 			t.Fatal("RabbitMQ RPC Client - shutdown error - rmqClient.RemoteCall", err)
+// 		}
+// 	}()
 
-	type Translation struct {
-		Source      string `json:"source"`
-		Destination string `json:"destination"`
-		Original    string `json:"original"`
-		Translation string `json:"translation"`
-	}
+// 	type Exchange struct {
+// 	}
 
-	type historyResponse struct {
-		History []Translation `json:"history"`
-	}
+// 	type historyResponse struct {
+// 		History []Exchange `json:"history"`
+// 	}
 
-	for i := 0; i < requests; i++ {
-		var history historyResponse
+// 	for i := 0; i < requests; i++ {
+// 		var history historyResponse
 
-		err = rmqClient.RemoteCall("getHistory", nil, &history)
-		if err != nil {
-			t.Fatal("RabbitMQ RPC Client - remote call error - rmqClient.RemoteCall", err)
-		}
+// 		err = rmqClient.RemoteCall("getHistory", nil, &history)
+// 		if err != nil {
+// 			t.Fatal("RabbitMQ RPC Client - remote call error - rmqClient.RemoteCall", err)
+// 		}
 
-		if history.History[0].Original != "текст для перевода" {
-			t.Fatal("Original != текст для перевода")
-		}
-	}
-}
+// 		if history.History[0].Original != currency {
+// 			t.Fatal("Original != currency")
+// 		}
+// 	}
+// }

@@ -8,7 +8,8 @@ import (
 	// Swagger docs.
 	"yarus-tz/internal/usecase"
 
-	_ "github.com/evrone/go-clean-template/docs"
+	_ "yarus-tz/docs"
+
 	"github.com/evrone/go-clean-template/pkg/logger"
 )
 
