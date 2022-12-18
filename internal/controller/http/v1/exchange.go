@@ -26,43 +26,17 @@ func newExchangeRoutes(handler *gin.RouterGroup, e usecase.ExchangeUseCase, l lo
 	}
 }
 
-// type historyResponse struct {
-// 	History []entity.Translation `json:"history"`
-// }
-
-// @Summary     Show history
-// @Description Show all translation history
-// @ID          history
-// @Tags  	    translation
-// @Accept      json
-// @Produce     json
-// @Success     200 {object} historyResponse
-// @Failure     500 {object} response
-// @Router      /translation/history [get]
-
-// func (r *translationRoutes) history(c *gin.Context) {
-// 	translations, err := r.t.History(c.Request.Context())
-// 	if err != nil {
-// 		r.l.Error(err, "http - v1 - history")
-// 		//errorResponse(c, http.StatusInternalServerError, "database problems")
-
-// 		return
-// 	}
-
-// 	c.JSON(http.StatusOK, nil)
-// }
-
-// @Summary     Translate
+// @Summary     Exchange
 // @Description Translate a text
-// @ID          do-translate
-// @Tags  	    translation
+// @ID          do-exchange
+// @Tags  	    exchangee
 // @Accept      json
 // @Produce     json
-// @Param       request body doTranslateRequest true "Set up translation"
-// @Success     200 {object} entity.Translation
+// @Param       request body doExchangeRequest true "Set up Exchange"
+// @Success     200 {object} entity.Exchange
 // @Failure     400 {object} response
 // @Failure     500 {object} response
-// @Router      /translation/do-translate [post]
+// @Router      /exchange/{currency} [get]
 func (r *exchangeRoutes) doExchange(c *gin.Context) {
 
 	currency := c.Param("currency")
