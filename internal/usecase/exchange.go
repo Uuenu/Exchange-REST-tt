@@ -20,20 +20,23 @@ func NewExchangeUseCase(l *logger.Logger) *ExchangeUseCase {
 
 func (uc *ExchangeUseCase) Exchange(ctx context.Context, e entity.Exchange) (entity.Exchange, error) {
 
-	if e.Currency == "" {
-		//TODO get random value from map
-		panic("implement me")
-	}
-
 	var valutes entity.DailyValues
 	valutes.SetValutes()
-	v := valutes.Valutes[e.Currency]
+
+	var v entity.Valute
+	if e.Currency == "" {
+		v = valutes.PickRandomValute()
+
+	} else {
+		v = valutes.Valutes[e.Currency]
+	}
+
 	empty := entity.Valute{}
 	if v == empty {
 		//TODO added logger and json error
 		return entity.Exchange{}, fmt.Errorf("ExchangeUseCase - Exchagne - invalid currency")
 	}
-
+	e.Currency = v.CharCode
 	e.Response = fmt.Sprintf("%d %s равен %f рублям", v.Nominal, v.Name, v.Value)
 
 	return e, nil

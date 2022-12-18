@@ -3,6 +3,7 @@ package entity
 import (
 	"encoding/json"
 	"net/http"
+	"sync"
 
 	"github.com/mitchellh/mapstructure"
 )
@@ -31,6 +32,16 @@ type Valute struct {
 type DailyValues struct {
 	Data    map[string]interface{}
 	Valutes map[string]Valute
+}
+
+func (daily *DailyValues) PickRandomValute() Valute {
+	var mu sync.RWMutex
+	mu.RLock()
+	defer mu.RUnlock()
+	for _, v := range daily.Valutes {
+		return v
+	}
+	return Valute{}
 }
 
 func (daily *DailyValues) SetValutes() {

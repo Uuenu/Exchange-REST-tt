@@ -20,9 +20,10 @@ type exchangeRoutes struct {
 func newExchangeRoutes(handler *gin.RouterGroup, e usecase.ExchangeUseCase, l logger.Interface) {
 	r := &exchangeRoutes{e, l}
 
-	h := handler.Group("/exchange")
+	h := handler.Group("/exchange").Use(tokenMiddleware(l, e))
 	{
 		h.GET("/:currency", r.doExchange)
+		h.GET("", r.doExchange)
 	}
 }
 
@@ -40,10 +41,10 @@ func newExchangeRoutes(handler *gin.RouterGroup, e usecase.ExchangeUseCase, l lo
 func (r *exchangeRoutes) doExchange(c *gin.Context) {
 
 	currency := c.Param("currency")
-	if currency == "" {
-		//TODO get random value from map
-		panic("implement me")
-	}
+	// if currency == "" {
+	// 	//TODO get random value from map
+	// 	panic("implement me")
+	// }
 
 	exchange, err := r.e.Exchange(
 		c.Request.Context(),
