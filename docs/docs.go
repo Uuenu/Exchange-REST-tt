@@ -25,7 +25,7 @@ var doc = `{
     "paths": {
         "/exchange": {
             "get": {
-                "description": "Translate a text",
+                "description": "Exchange",
                 "consumes": [
                     "application/json"
                 ],
@@ -33,7 +33,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "translation"
+                    "exchange"
                 ],
 				"X-Api-Key": [
                     "123321"
@@ -78,15 +78,12 @@ var doc = `{
         "entity.Exchange": {
             "type": "object",
             "properties": {
-                "destination": {
-
+                "Currency": {
+                    "USD"
                 },
-                "original": {
-                    
-                },
-                "source": {
-                    
-                },
+                "Response": {
+                    "1 Доллар США равен 64.607800 рублям"
+                }
                 
             }
         },
@@ -96,14 +93,8 @@ var doc = `{
                 
             ],
             "properties": {
-                "destination": {
-                    
-                },
-                "original": {
-                    
-                },
-                "source": {
-                    
+                "Currency": {
+                    "USD"
                 }
             }
         },
@@ -111,7 +102,7 @@ var doc = `{
             "type": "object",
             "properties": {
                 "error": {
-                
+                    "Invalid X-API-KEY"
                 }
             }
         }

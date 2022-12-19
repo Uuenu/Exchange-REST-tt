@@ -10,7 +10,7 @@ import (
 
 	_ "yarus-tz/docs"
 
-	"github.com/evrone/go-clean-template/pkg/logger"
+	"yarus-tz/pkg/logger"
 )
 
 // NewRouter -.

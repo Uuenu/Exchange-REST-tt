@@ -9,7 +9,7 @@ import (
 	"yarus-tz/internal/entity"
 	"yarus-tz/internal/usecase"
 
-	"github.com/evrone/go-clean-template/pkg/logger"
+	"yarus-tz/pkg/logger"
 )
 
 type exchangeRoutes struct {

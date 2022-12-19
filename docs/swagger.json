@@ -58,40 +58,22 @@
         }
     },
     "definitions": {
-        "entity.Translation": {
+        "entity.Ex": {
             "type": "object",
             "properties": {
-                "destination": {
-                    
-                },
-                "original": {
-                    
-                },
-                "source": {
-                   
-                },
-                "exchange": {
-                    
-                }
+                "Currency": "USD",
+                "Response": "1 Доллар США равен 64.607800 рублям"
             }
         },
         "v1.doExchangeeRequest": {
             "type": "object",
             "required": [
-                "destination",
-                "original",
-                "source"
+                "Currency",
+                "Response"
             ],
             "properties": {
-                "destination": {
-                    
-                },
-                "original": {
-                   
-                },
-                "source": {
-                   
-                }
+                "Currency": "USD",
+                "Response": "1 Доллар США равен 64.607800 рублям"
             }
         },
        
