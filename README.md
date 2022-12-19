@@ -1,11 +1,11 @@
 # Exchange-REST-tt
 
 #### Rest API поддерживает 2-а Get запроса:
-    ````
+    
         http://localhost:8080/v1/exchange/USD
     
         http://localhost:8080/v1/exchange
-    ````
+    
 
 ### Развертывание 
   1. Скачать публичный репозиторий.
