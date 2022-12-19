@@ -2,10 +2,9 @@
 
 #### Rest API поддерживает 2-а Get запроса:
     ````
-    http://localhost:8080/v1/exchange/USD
+        http://localhost:8080/v1/exchange/USD
     
-    http://localhost:8080/v1/exchange
-
+        http://localhost:8080/v1/exchange
     ````
 
 ### Развертывание 
