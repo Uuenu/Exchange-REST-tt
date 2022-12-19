@@ -1,0 +1,51 @@
+definitions:
+  entity.Exchange:
+    properties:
+      currency:
+        type: string
+      response:
+        type: string
+    type: object
+  v1.doExchangeRequest:
+    type: object
+  v1.response:
+    properties:
+      error:
+        example: message
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /exchange/{currency}:
+    get:
+      consumes:
+      - application/json
+      description: Exchange currency on Ruble
+      operationId: do-exchange
+      parameters:
+      - description: Set up Exchange
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/v1.doExchangeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.Exchange'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.response'
+      summary: Exchange
+      tags:
+      - exchangee
+swagger: "2.0"

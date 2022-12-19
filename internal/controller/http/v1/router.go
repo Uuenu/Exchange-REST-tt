@@ -15,7 +15,7 @@ import (
 
 // NewRouter -.
 // Swagger spec:
-// @title       Go Clean Template API
+// @title       Go Exchange Rest API
 // @description Using a exchange service as an example
 // @version     1.0
 // @host        localhost:8080

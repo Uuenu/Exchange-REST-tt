@@ -1,17 +1,12 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Using a exchange service as an example",
-        "title": "Go Exchange REST API",
-        "contact": {},
-        "version": "1.0"
+        "contact": {}
     },
-    "host": "localhost:8080",
-    "basePath": "/v1",
     "paths": {
-        "/exchange": {
-            "post": {
-                "description": "Exchange",
+        "/exchange/{currency}": {
+            "get": {
+                "description": "Exchange currency on Ruble",
                 "consumes": [
                     "application/json"
                 ],
@@ -19,13 +14,13 @@
                     "application/json"
                 ],
                 "tags": [
-                    "exchange"
+                    "exchangee"
                 ],
                 "summary": "Exchange",
                 "operationId": "do-exchange",
                 "parameters": [
                     {
-                        "description": "Exchange",
+                        "description": "Set up Exchange",
                         "name": "request",
                         "in": "body",
                         "required": true,
@@ -58,30 +53,26 @@
         }
     },
     "definitions": {
-        "entity.Ex": {
+        "entity.Exchange": {
             "type": "object",
             "properties": {
-                "Currency": "USD",
-                "Response": "1 Доллар США равен 64.607800 рублям"
+                "currency": {
+                    "type": "string"
+                },
+                "response": {
+                    "type": "string"
+                }
             }
         },
-        "v1.doExchangeeRequest": {
-            "type": "object",
-            "required": [
-                "Currency",
-                "Response"
-            ],
-            "properties": {
-                "Currency": "USD",
-                "Response": "1 Доллар США равен 64.607800 рублям"
-            }
+        "v1.doExchangeRequest": {
+            "type": "object"
         },
-       
         "v1.response": {
             "type": "object",
             "properties": {
                 "error": {
-                   
+                    "type": "string",
+                    "example": "message"
                 }
             }
         }
