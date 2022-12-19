@@ -16,7 +16,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/exchange/{currency}": {
+        "/exchange": {
             "get": {
                 "description": "Exchange currency on Ruble",
                 "consumes": [
@@ -45,7 +45,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/entity.Exchange"
+                            "$ref": "#/definitions/v1.response"
                         }
                     },
                     "400": {
@@ -65,17 +65,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "entity.Exchange": {
-            "type": "object",
-            "properties": {
-                "currency": {
-                    "type": "string"
-                },
-                "response": {
-                    "type": "string"
-                }
-            }
-        },
         "v1.doExchangeRequest": {
             "type": "object"
         },

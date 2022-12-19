@@ -1,11 +1,4 @@
 definitions:
-  entity.Exchange:
-    properties:
-      currency:
-        type: string
-      response:
-        type: string
-    type: object
   v1.doExchangeRequest:
     type: object
   v1.response:
@@ -17,7 +10,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /exchange/{currency}:
+  /exchange:
     get:
       consumes:
       - application/json
@@ -36,7 +29,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/entity.Exchange'
+            $ref: '#/definitions/v1.response'
         "400":
           description: Bad Request
           schema:

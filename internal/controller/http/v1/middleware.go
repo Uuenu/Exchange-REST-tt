@@ -21,7 +21,7 @@ func tokenMiddleware(l logger.Interface, e usecase.ExchangeUseCase) gin.HandlerF
 
 		if key != "123321" && len(header["X-Api-Key"]) != 1 {
 			l.Info("http - v1 - exchange - middleware tokenMiddleware - Invalid X-API-KEY")
-			ctx.AbortWithStatus(http.StatusUnauthorized)
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, http.StatusUnauthorized)
 			return
 		}
 

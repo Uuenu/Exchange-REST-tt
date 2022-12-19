@@ -36,10 +36,10 @@ type doExchangeRequest struct {
 // @Accept      json
 // @Produce     json
 // @Param       request body doExchangeRequest true "Set up Exchange"
-// @Success     200 {object} entity.Exchange
+// @Success     200 {object} response
 // @Failure     400 {object} response
 // @Failure     500 {object} response
-// @Router      /exchange/{currency} [get]
+// @Router      /exchange [get]
 func (r *exchangeRoutes) doExchange(c *gin.Context) {
 
 	currency := c.Param("currency")
@@ -57,5 +57,7 @@ func (r *exchangeRoutes) doExchange(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, exchange)
+	c.JSON(http.StatusOK, gin.H{
+		exchange.Currency: exchange.Response,
+	})
 }

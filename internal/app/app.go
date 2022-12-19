@@ -1,21 +1,12 @@
 package app
 
 import (
-	// "fmt"
-	// "os"
-	// "os/signal"
-	// "syscall"
-
 	"yarus-tz/config"
 	v1 "yarus-tz/internal/controller/http/v1"
 	"yarus-tz/internal/usecase"
 	"yarus-tz/pkg/logger"
 
-	//vrest "yarus-tz/pkg/valute-rest"
-
 	"github.com/gin-gonic/gin"
-	// "yarus-tz/pkg/logger"
-	// "github.com/gin-gonic/gin"
 )
 
 func Run(cfg *config.Config) {
